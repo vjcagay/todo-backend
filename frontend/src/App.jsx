@@ -9,7 +9,7 @@ const App = () => {
 
   const addTodo = () => {
     const newTodos = [...todos];
-    newTodos.push({
+    newTodos.unshift({
       id: new Date().getTime(),
       task,
       done: false,
@@ -45,7 +45,7 @@ const App = () => {
         <li className="border-t first:border-t-0 px-1 py-1">
           <input
             type="text"
-            className="block w-full text-3xl px-4 py-2 placeholder-gray-400 text-gray-700 outline-none"
+            className="block w-full text-xl px-4 py-2 placeholder-gray-400 text-gray-700 outline-none"
             placeholder="What needs to be done?"
             value={task}
             onChange={(event) => setTask(event.target.value)}
