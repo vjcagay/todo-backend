@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ReactDOM from "react-dom";
 import Todo from "./Todo";
 
@@ -32,6 +32,8 @@ const App = () => {
     setTodos(newTodos);
   };
 
+  const activeItems = todos.filter((todo) => !todo.done).length;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-6xl text-center text-red-300">todos</h1>
@@ -50,6 +52,13 @@ const App = () => {
         {todos.map((todo) => (
           <Todo key={todo.id} value={todo} onChange={updateTodo} onDelete={deleteTodo} />
         ))}
+        {todos.length > 0 && (
+          <li className="border-t flex px-4 py-1 text-gray-500">
+            <span className="flex-grow-0">
+              {activeItems} {activeItems > 1 ? "items" : "item"} left
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );
