@@ -1,0 +1,30 @@
+{
+  "name": "todo-backend-javascript",
+  "version": "0.1.0",
+  "description": "Backend for Todo Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vjcagay/todo-backend.git"
+  },
+  "author": "Vincent John Cagay",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/vjcagay/todo-backend/issues"
+  },
+  "homepage": "https://github.com/vjcagay/todo-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=12.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
