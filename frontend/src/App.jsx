@@ -1,41 +1,70 @@
-import React, { useMemo, useState } from "react";
+import "regenerator-runtime/runtime";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Todo from "./Todo";
+
+// Tell the browser to send the data via JSON
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
 
 const App = () => {
   const [todos, setTodos] = useState([]);
 
   const [task, setTask] = useState("");
 
-  const addTodo = () => {
-    const newTodos = [...todos];
-    newTodos.unshift({
-      id: new Date().getTime(),
-      task,
-      done: false,
+  useEffect(() => {
+    const getTodos = async () => {
+      const todos = await fetch("http://localhost:3000/todos");
+      setTodos(await todos.json());
+    };
+    getTodos();
+  }, []);
+
+  const addTodo = async () => {
+    const todo = await fetch("http://localhost:3000/todos", {
+      method: "post",
+      headers,
+      body: JSON.stringify({ task }),
     });
+    const newTodos = [...todos];
+    newTodos.push(await todo.json());
     setTodos(newTodos);
     setTask("");
   };
 
-  const updateTodo = (newTodo) => {
+  const updateTodo = async (todo) => {
     const newTodos = [...todos];
-    const index = newTodos.findIndex((todo) => todo.id === newTodo.id);
-    newTodos[index] = newTodo;
+    const index = newTodos.findIndex((item) => item._id === todo._id);
+    newTodos[index] = todo;
     setTodos(newTodos);
+    await fetch("http://localhost:3000/todos", {
+      method: "put",
+      headers,
+      body: JSON.stringify(todo),
+    });
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = async (_id) => {
     const newTodos = [...todos];
-    const index = newTodos.findIndex((todo) => todo.id === id);
+    const index = newTodos.findIndex((todo) => todo._id === _id);
     newTodos.splice(index, 1);
     setTodos(newTodos);
+    await fetch("http://localhost:3000/todos", {
+      method: "delete",
+      headers,
+      body: JSON.stringify({ _id }),
+    });
   };
 
   const activeItems = todos.filter((todo) => !todo.done).length;
 
-  const deleteDoneTodos = () => {
+  const deleteDoneTodos = async () => {
     setTodos(todos.filter((todo) => !todo.done));
+    await fetch("http://localhost:3000/todos/all", {
+      method: "delete",
+    });
   };
 
   return (
@@ -54,7 +83,7 @@ const App = () => {
           />
         </li>
         {todos.map((todo) => (
-          <Todo key={todo.id} value={todo} onChange={updateTodo} onDelete={deleteTodo} />
+          <Todo key={todo._id} value={todo} onChange={updateTodo} onDelete={deleteTodo} />
         ))}
         {todos.length > 0 && (
           <li className="border-t flex justify-between px-4 py-1 text-gray-500">
