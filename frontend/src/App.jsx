@@ -22,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     const getTodos = async () => {
-      const todos = await ajax("http://localhost:3000/todos");
+      const todos = await ajax("/todos");
       setTodos(todos);
     };
     getTodos();
@@ -43,7 +43,7 @@ const App = () => {
   };
 
   const addTodo = async () => {
-    const todo = await ajax("http://localhost:3000/todos", "post", { task });
+    const todo = await ajax("/todos", "post", { task });
     manageTodos(todo);
     setTask("");
   };
@@ -51,20 +51,20 @@ const App = () => {
   const updateTodo = (todo) => {
     const method = "put";
     manageTodos(todo, method);
-    ajax("http://localhost:3000/todos", method, todo);
+    ajax("/todos", method, todo);
   };
 
   const deleteTodo = (todo) => {
     const method = "delete";
     manageTodos(todo, method);
-    ajax("http://localhost:3000/todos", "delete", todo);
+    ajax("/todos", "delete", todo);
   };
 
   const activeItems = todos.filter((todo) => !todo.done).length;
 
   const deleteDoneTodos = () => {
     setTodos(todos.filter((todo) => !todo.done));
-    ajax("http://localhost:3000/todos/all", "delete");
+    ajax("/todos/all", "delete");
   };
 
   return (
