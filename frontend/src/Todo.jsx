@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 const Todo = ({ value, onChange, onDelete }) => {
   const input = useRef(null);
   const [edit, setEdit] = useState(false);
-  const [task, setTask] = useState(value.task);
+  const [task, setTask] = useState("");
 
   useEffect(() => {
     if (edit) {
@@ -16,6 +16,7 @@ const Todo = ({ value, onChange, onDelete }) => {
       if (task.trim()) {
         onChange({ ...value, task: task.trim() });
       }
+      setTask("");
     }
 
     return () => document.removeEventListener("click", isOutSideClick);
@@ -43,7 +44,7 @@ const Todo = ({ value, onChange, onDelete }) => {
             onChange={(event) => onChange({ ...value, done: event.target.checked })}
           />
           <span className={value.done ? "py-1 flex-grow line-through" : "py-1 flex-grow"}>{value.task}</span>
-          <button className="ml-4 text-xl outline-none" onClick={() => onDelete(value.id)}>
+          <button className="ml-4 text-xl outline-none" onClick={() => onDelete(value._id)}>
             ×
           </button>
         </>
