@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 const { MongoClient, ObjectId } = require("mongodb");
 
@@ -28,6 +29,8 @@ const mongo = {
 const app = express();
 // Set Express to parse and send only json
 app.use(express.json());
+// Enable CORS
+app.use(cors());
 
 app.get("/todos", async (request, response) => {
   try {
@@ -52,7 +55,7 @@ app.post("/todos", async (request, response) => {
   }
 });
 
-app.patch("/todos", async (request, response) => {
+app.put("/todos", async (request, response) => {
   const { _id, ...rest } = request.body;
   try {
     await mongo.db.collection("todos").updateOne(
