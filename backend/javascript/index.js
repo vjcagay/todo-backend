@@ -82,6 +82,17 @@ app.delete("/todos", async (request, response) => {
   }
 });
 
+app.delete("/todos/all", async (request, response) => {
+  try {
+    const results = await mongo.db.collection("todos").deleteMany({
+      done: true,
+    });
+    response.status(200).send({ deleted: results.deletedCount });
+  } catch (err) {
+    response.status(404).send({ message: "Document not found." });
+  }
+});
+
 app.listen(appPort, () => {
   console.log(`Server listening to port ${appPort}...`);
   mongo.connect();
