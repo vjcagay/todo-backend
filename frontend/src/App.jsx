@@ -3,68 +3,68 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Todo from "./Todo";
 
-// Tell the browser to send the data via JSON
-const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
+const ajax = async (url, method = "get", body = {}) => {
+  const result = await fetch(url, {
+    method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: method !== "get" ? JSON.stringify(body) : null,
+  });
+
+  return await result.json();
 };
 
 const App = () => {
   const [todos, setTodos] = useState([]);
-
   const [task, setTask] = useState("");
 
   useEffect(() => {
     const getTodos = async () => {
-      const todos = await fetch("http://localhost:3000/todos");
-      setTodos(await todos.json());
+      const todos = await ajax("http://localhost:3000/todos");
+      setTodos(todos);
     };
     getTodos();
   }, []);
 
-  const addTodo = async () => {
-    const todo = await fetch("http://localhost:3000/todos", {
-      method: "post",
-      headers,
-      body: JSON.stringify({ task }),
-    });
+  // Perform CRUD
+  const manageTodos = (todo, method) => {
     const newTodos = [...todos];
-    newTodos.push(await todo.json());
+    const index = newTodos.findIndex((item) => item._id === todo._id);
+    if (index === -1) {
+      newTodos.push(todo);
+    } else if (method === "put") {
+      newTodos[index] = todo;
+    } else if (method === "delete") {
+      newTodos.splice(index, 1);
+    }
     setTodos(newTodos);
+  };
+
+  const addTodo = async () => {
+    const todo = await ajax("http://localhost:3000/todos", "post", { task });
+    manageTodos(todo);
     setTask("");
   };
 
-  const updateTodo = async (todo) => {
-    const newTodos = [...todos];
-    const index = newTodos.findIndex((item) => item._id === todo._id);
-    newTodos[index] = todo;
-    setTodos(newTodos);
-    await fetch("http://localhost:3000/todos", {
-      method: "put",
-      headers,
-      body: JSON.stringify(todo),
-    });
+  const updateTodo = (todo) => {
+    const method = "put";
+    manageTodos(todo, method);
+    ajax("http://localhost:3000/todos", method, todo);
   };
 
-  const deleteTodo = async (_id) => {
-    const newTodos = [...todos];
-    const index = newTodos.findIndex((todo) => todo._id === _id);
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
-    await fetch("http://localhost:3000/todos", {
-      method: "delete",
-      headers,
-      body: JSON.stringify({ _id }),
-    });
+  const deleteTodo = (todo) => {
+    const method = "delete";
+    manageTodos(todo, method);
+    ajax("http://localhost:3000/todos", "delete", todo);
   };
 
   const activeItems = todos.filter((todo) => !todo.done).length;
 
-  const deleteDoneTodos = async () => {
+  const deleteDoneTodos = () => {
     setTodos(todos.filter((todo) => !todo.done));
-    await fetch("http://localhost:3000/todos/all", {
-      method: "delete",
-    });
+    ajax("http://localhost:3000/todos/all", "delete");
   };
 
   return (

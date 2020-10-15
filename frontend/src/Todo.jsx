@@ -44,7 +44,7 @@ const Todo = ({ value, onChange, onDelete }) => {
             onChange={(event) => onChange({ ...value, done: event.target.checked })}
           />
           <span className={value.done ? "py-1 flex-grow line-through" : "py-1 flex-grow"}>{value.task}</span>
-          <button className="ml-4 text-xl outline-none" onClick={() => onDelete(value._id)}>
+          <button className="ml-4 text-xl outline-none" onClick={() => onDelete(value)}>
             ×
           </button>
         </>
