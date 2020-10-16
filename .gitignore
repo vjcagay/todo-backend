@@ -1,8 +1,2 @@
 .DS_Store
-.cache/
-dist/
-node_modules/
-dev/
-coverage/
-mongodb.log
-mongodb/
+.vscode/
