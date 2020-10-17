@@ -49,4 +49,9 @@ public class TodoService {
     repository.delete(todo);
     return todo;
   }
+
+  @DeleteMapping("/todos/all")
+  public List<Todo> deleteAllDone() {
+    return repository.deleteDoneTodos();
+  }
 }
