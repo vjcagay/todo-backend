@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TodoService {
 
-	@Autowired
-	private TodoRepository repository;
+  @Autowired
+  private TodoRepository repository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(TodoService.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(TodoService.class, args);
+  }
 
-	// "/" automatically maps to resources/static
+  // "/" automatically maps to resources/static
 
-	@GetMapping("/todos")
-	public List<Todo> getTodos() {
-		return repository.findAll();
-	}
+  @GetMapping("/todos")
+  public List<Todo> getTodos() {
+    return repository.findAll();
+  }
 
 }
