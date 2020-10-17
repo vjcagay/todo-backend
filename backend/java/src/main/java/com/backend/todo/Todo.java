@@ -1,13 +1,26 @@
 package com.backend.todo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
 public class Todo {
+    
+    private final String _id;
+    private final String task;
+    private final Boolean done;
 
-	public static void main(String[] args) {
-		SpringApplication.run(Todo.class, args);
-	}
+    public Todo(String _id, String task, boolean done) {
+        this._id = _id;
+        this.task = task;
+        this.done = done;
+    }
 
+    public String getId() {
+        return this._id;
+    }
+    
+    public String getTask() {
+        return this.task;
+    }
+
+    public Boolean getDone() {
+        return this.done;
+    }
 }
