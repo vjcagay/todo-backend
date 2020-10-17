@@ -18,6 +18,10 @@ This project aims to create todo app implementations demonstrating basic CRUD (c
 
 The app, no matter the backend, will connect only into a single MongoDB database and will access the same set of data.
 
+## Screenshot
+
+![screenshot](images/screenshot.png)
+
 ## Setup
 
 - Make sure that you have MongoDB installed in your system.
