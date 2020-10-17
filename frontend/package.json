@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "http-server dist",
-    "build": "parcel build src/index.html",
+    "build:javascript": "parcel build src/index.html -d ../backend/javascript/static",
+    "build:java": "parcel build src/index.html -d ../backend/java/src/main/resources/static",
     "dev": "parcel src/index.html"
   },
   "repository": {

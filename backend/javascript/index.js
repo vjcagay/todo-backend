@@ -32,7 +32,7 @@ app.use(express.json());
 // Enable CORS
 app.use(cors());
 // Load the frontend UI
-app.use(express.static("../../frontend/dist"));
+app.use(express.static("./static"));
 
 app.get("/todos", async (request, response) => {
   try {
