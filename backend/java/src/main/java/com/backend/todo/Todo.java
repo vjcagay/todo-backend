@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Todo {
 
   @Id
-  private final String _id;
+  private String _id;
 
   private final String task;
-  private final Boolean done;
+  private final boolean done;
 
-  public Todo(String _id, String task, Boolean done) {
+  public Todo(String _id, String task, boolean done) {
     this._id = _id;
     this.task = task;
     this.done = done;
@@ -22,11 +22,17 @@ public class Todo {
     return this._id;
   }
 
+  // This function should be implemented so that the MongoRepository class
+  // can assign the ObjectId after insertion
+  public void set_id(String _id) {
+    this._id = _id;
+  }
+
   public String getTask() {
     return this.task;
   }
 
-  public Boolean getDone() {
+  public boolean getDone() {
     return this.done;
   }
 }
