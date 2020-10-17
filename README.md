@@ -2,6 +2,8 @@
 
 This project aims to create todo app implementations demonstrating basic CRUD (create, read, update, delete) operations on several backend programming languages.
 
+Inspired by [TodoMVC](http://todomvc.com), I created this project with the aim of learning new programming languages in a fun way. Simple enough, but still teaches the fundamentals of backend development.
+
 - [x] [JavaScript (Node.js)](backend/javascript/README.md)
 - [x] [Java (Spring Boot)](backend/java/README.md)
 - [ ] TypeScript
@@ -30,4 +32,9 @@ The app, no matter the backend, will connect only into a single MongoDB database
 - Choose a backend language in [`backend`](backend) you want
 - Let's rock!
 
-This project is inspired from [TodoMVC](http://todomvc.com) but instead of implementing a todo app with several MV\* frameworks this will only focus on a single frontend with several implementations in the backend.
+## Author
+
+© Vincent John Cagay
+
+- [https://vjca.gay](https://vjca.gay)
+- [https://vjcagay.com](https://vjcagay.com)
