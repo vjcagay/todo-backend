@@ -1,8 +1,14 @@
 package com.backend.todo;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "todos")
 public class Todo {
     
+    @Id
     private final String _id;
+
     private final String task;
     private final Boolean done;
 
@@ -12,7 +18,7 @@ public class Todo {
         this.done = done;
     }
 
-    public String getId() {
+    public String get_id() {
         return this._id;
     }
     
