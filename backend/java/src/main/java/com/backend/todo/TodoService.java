@@ -43,4 +43,10 @@ public class TodoService {
     repository.save(todo);
     return todo;
   }
+
+  @DeleteMapping("/todos")
+  public Todo deleteTodo(@RequestBody Todo todo) {
+    repository.delete(todo);
+    return todo;
+  }
 }
