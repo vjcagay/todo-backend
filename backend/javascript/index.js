@@ -57,8 +57,9 @@ app.post("/todos", async (request, response) => {
   }
 });
 
-app.put("/todos", async (request, response) => {
-  const { _id, ...rest } = request.body;
+app.put("/todos/:_id", async (request, response) => {
+  const { _id } = request.params;
+  const { _id: _, ...rest } = request.body; // We use the _id from request param
   try {
     await mongo.db.collection("todos").updateOne(
       { _id: ObjectId(_id) },
@@ -72,19 +73,19 @@ app.put("/todos", async (request, response) => {
   }
 });
 
-app.delete("/todos", async (request, response) => {
-  const { _id } = request.body;
+app.delete("/todos/:_id", async (request, response) => {
+  const { _id } = request.params;
   try {
-    await mongo.db.collection("todos").deleteOne({
+    const results = await mongo.db.collection("todos").deleteOne({
       _id: ObjectId(_id),
     });
-    response.status(200).send(request.body);
+    response.status(200).send({ deleted: results.deletedCount }).end();
   } catch (err) {
     response.status(404).send({ message: "Document not found." });
   }
 });
 
-app.delete("/todos/all", async (request, response) => {
+app.delete("/todos", async (request, response) => {
   try {
     const results = await mongo.db.collection("todos").deleteMany({
       done: true,
