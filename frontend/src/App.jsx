@@ -51,20 +51,20 @@ const App = () => {
   const updateTodo = (todo) => {
     const method = "put";
     manageTodos(todo, method);
-    ajax("/todos", method, todo);
+    ajax(`/todos/${todo._id}`, method, todo);
   };
 
   const deleteTodo = (todo) => {
     const method = "delete";
     manageTodos(todo, method);
-    ajax("/todos", "delete", todo);
+    ajax(`/todos/${todo._id}`, "delete");
   };
 
   const activeItems = todos.filter((todo) => !todo.done).length;
 
   const deleteDoneTodos = () => {
     setTodos(todos.filter((todo) => !todo.done));
-    ajax("/todos/all", "delete");
+    ajax("/todos", "delete");
   };
 
   return (
