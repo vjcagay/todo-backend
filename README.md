@@ -32,6 +32,37 @@ The app, no matter the backend, will connect only into a single MongoDB database
 - Choose a backend language in [`backend`](backend) you want
 - Let's rock!
 
+## API
+
+A Todo is an object that will have the following data:
+
+- ObjectID `_id` acts as the primary key
+- String `task` describes what the Todo is about
+- Boolean `done` marks the when the Todo is done
+
+The frontend and backend should use the following endpoints:
+
+- **GET** `/todos`
+  - Gets all Todos
+  - Does not require anything
+  - Returns an array of Todos
+- **POST** `/todos`
+  - Create a new Todo
+  - Requires Todo data
+  - Returns new Todo with the generated `_id`
+- **PUT** `/todos/{_id}`
+  - Updates an existing Todo
+  - Requires Todo data and `_id` to be passed on the URL
+  - Returns a Todo with the updated data (`_id` is immutable)
+- **DELETE** `/todos/{_id}`
+  - Deletes a Todo
+  - Requires `_id` to be passed on the URL
+  - Returns a JSON object displaying the number of deleted Todos, in this case, only 1 (`{ deleted: 1 }`)
+- **DELETE** `/todos`
+  - Deletes all Todos that are marked `done`
+  - Does not require anything
+  - Returns a JSON object displaying the number (n > -1) of deleted Todos (`{ deleted: n > -1 }`)
+
 ## Author
 
 © Vincent John Cagay
