@@ -15,6 +15,7 @@ Inspired by [TodoMVC](http://todomvc.com), I created this project with the aim o
 - [ ] Scala
 - [ ] Swift
 - [ ] Python
+- [ ] Ruby
 
 ...and many more in the future.
 
